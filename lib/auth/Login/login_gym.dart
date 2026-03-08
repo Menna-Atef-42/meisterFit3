@@ -1,13 +1,12 @@
+import 'dart:convert' as convert;
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/utils/colors.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 import 'package:icons_plus/icons_plus.dart';
 import '../../customs/custom_elevated_bottom.dart';
 import '../../customs/custom_formField.dart';
 import '../../utils/routes.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,23 +18,28 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool obscurePassword = true;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Form(
             key: formKey,
@@ -48,7 +52,7 @@ class _LoginState extends State<Login> {
                   fit: BoxFit.contain,
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 Text(
                   'Create an Account',
@@ -59,7 +63,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
 
                 CustomFormfield(
                   filled: true,
@@ -73,10 +77,11 @@ class _LoginState extends State<Login> {
                   },
                   borderSideColor: AppColors.blackColor,
                   hintText: 'User name',
-                  suffixIcon: Icon(Icons.person, color: AppColors.blackColor),
+                  suffixIcon:
+                  Icon(Icons.person, color: AppColors.blackColor),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 CustomFormfield(
                   filled: true,
@@ -86,20 +91,24 @@ class _LoginState extends State<Login> {
                     if (text == null || text.isEmpty) {
                       return 'Please Enter Email';
                     }
+
                     final bool emailValid = RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(text);
+
                     if (!emailValid) {
                       return 'Please enter a valid email';
                     }
+
                     return null;
                   },
                   borderSideColor: AppColors.blackColor,
                   hintText: 'Enter Email',
-                  suffixIcon: Icon(Icons.email, color: AppColors.blackColor),
+                  suffixIcon:
+                  Icon(Icons.email, color: AppColors.blackColor),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 CustomFormfield(
                   filled: true,
@@ -110,9 +119,11 @@ class _LoginState extends State<Login> {
                     if (text == null || text.isEmpty) {
                       return 'Please Enter Password';
                     }
+
                     if (text.length < 6) {
                       return 'Password must be at least 6 characters';
                     }
+
                     return null;
                   },
                   borderSideColor: AppColors.blackColor,
@@ -132,7 +143,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
 
                 Center(
                   child: CustomElevatedBottom(
@@ -145,7 +156,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 Row(
                   children: [
@@ -172,33 +183,41 @@ class _LoginState extends State<Login> {
                   ],
                 ),
 
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed: () {
-                      },
-                      icon: Icon(Bootstrap.google,
-                          size: 30, color: AppColors.phosphorescentColor),
+                      onPressed: () {},
+                      icon: Icon(
+                        Bootstrap.google,
+                        size: 30,
+                        color: AppColors.phosphorescentColor,
+                      ),
                     ),
                     SizedBox(width: screenWidth * 0.08),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Bootstrap.facebook,
-                          size: 30, color: AppColors.phosphorescentColor),
+                      icon: Icon(
+                        Bootstrap.facebook,
+                        size: 30,
+                        color: AppColors.phosphorescentColor,
+                      ),
                     ),
                     SizedBox(width: screenWidth * 0.08),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Bootstrap.instagram,
-                          size: 30, color: AppColors.phosphorescentColor),
+                      icon: Icon(
+                        Bootstrap.instagram,
+                        size: 30,
+                        color: AppColors.phosphorescentColor,
+                      ),
                     ),
                   ],
                 ),
 
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -209,7 +228,8 @@ class _LoginState extends State<Login> {
                     ),
                     TextButton(
                       onPressed: () =>
-                          Navigator.popAndPushNamed(context, AppRoutes.signIn2),
+                          Navigator.popAndPushNamed(
+                              context, AppRoutes.signIn2),
                       child: Text(
                         'Sign in',
                         style: TextStyle(
@@ -228,69 +248,79 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void createAccount() async {
-    if (formKey.currentState!.validate()) {
-      try {
-        final credential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-        AwesomeDialog successDialog = AwesomeDialog(
+  Future<void> createAccount() async {
+    if (formKey.currentState == null || !formKey.currentState!.validate()) {
+      return;
+    }
+
+    final String url = "https://gp-backend-production-f405.up.railway.app/api/register";
+    final uri = Uri.parse(url);
+
+    try {
+      var response = await http.post(
+        uri,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: convert.jsonEncode({
+          "name": nameController.text.trim(),
+          "email": emailController.text.trim(),
+          "password": passwordController.text,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      var responseData = convert.jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        AwesomeDialog(
           context: context,
-          animType: AnimType.scale,
           dialogType: DialogType.success,
-          body: Center(
-            child: Text(
-              'Account created successfully',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-          title: 'This is Ignored',
-          desc: 'This is also Ignored',
+          animType: AnimType.bottomSlide,
+          title: 'Success',
+          desc: responseData['message'] ?? 'Account created successfully!',
           btnOkOnPress: () {
             Navigator.pushNamed(context, AppRoutes.genderScreen);
           },
-        );
-        successDialog.show();
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          AwesomeDialog(
-            context: context,
-            animType: AnimType.scale,
-            dialogType: DialogType.info,
-            body: Center(child: Text(
-              'The password provided is too weak',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),),
-            title: 'This is Ignored',
-            desc: 'This is also Ignored',
-            btnOkOnPress: () {},
-          )
-            ..show();
-        } else if (e.code == 'email-already-in-use') {
-          AwesomeDialog(
-            context: context,
-            animType: AnimType.scale,
-            dialogType: DialogType.info,
-            body: Center(child: Text(
-              'The account already exists for that email.',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),),
-            title: 'This is Ignored',
-            desc: 'This is also Ignored',
-            btnOkOnPress: () {},
-          )
-            ..show();
-        }
-      } catch (e) {
-        print(e);
+        ).show();
+
       }
+      else {
+        String errorMessage = 'Registration Failed';
+
+        if (responseData['errors'] != null) {
+          var errors = responseData['errors'];
+
+          if (errors['email'] != null) {
+            errorMessage = errors['email'][0].toString();
+          } else {
+            errorMessage = errors.values.first[0].toString();
+          }
+        } else {
+          errorMessage = responseData['message'] ?? 'Check your data and try again';
+        }
+
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          title: 'Oops!',
+          desc: errorMessage,
+          btnOkColor: Colors.red,
+          btnOkOnPress: () {},
+        ).show();
+      }
+
+    } catch (e) {
+      print("Network Error: $e");
+
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        title: 'Connection Error',
+        desc: 'Please check your internet and try again later.',
+        btnOkOnPress: () {},
+      ).show();
     }
   }
 }
-
-
-
-
-

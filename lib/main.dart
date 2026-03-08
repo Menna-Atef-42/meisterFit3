@@ -3,13 +3,19 @@ import 'package:fluttercourse/auth/Login/login_gym.dart';
 import 'package:fluttercourse/auth/Register/sign_in_1.dart';
 import 'package:fluttercourse/auth/Register/sign_in_2.dart';
 import 'package:fluttercourse/customs/custom_formField.dart';
+import 'package:fluttercourse/screens/Instructions/biceps_curl.dart';
+import 'package:fluttercourse/screens/Instructions/dumbbell_side.dart';
+import 'package:fluttercourse/screens/Instructions/hammer_curl.dart';
+import 'package:fluttercourse/screens/Instructions/push_up.dart';
+import 'package:fluttercourse/screens/Instructions/shoulder_press.dart';
 import 'package:fluttercourse/screens/dashboard/homeIcon.dart';
 import 'package:fluttercourse/screens/dashboard/dashboard_main.dart';
-import 'package:fluttercourse/screens/dashboard/profileIcone.dart';
+import 'package:fluttercourse/screens/dashboard/history.dart';
 import 'package:fluttercourse/screens/front_screen.dart';
 import 'package:fluttercourse/screens/gender_screen.dart';
 import 'package:fluttercourse/screens/dashboard/heartIcon.dart';
 import 'package:fluttercourse/screens/dashboard/ironIcon.dart';
+import 'package:fluttercourse/screens/levelSelectionSheet.dart';
 import 'package:fluttercourse/utils/routes.dart';
 import 'package:fluttercourse/screens/intro_screen.dart';
 
@@ -25,13 +31,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.dashScreen,
+      initialRoute: AppRoutes.signIn1,
       routes: {
         AppRoutes.homeIcon: (context) => Homeicon(),
-        AppRoutes.introScreen: (context) => IntroScreen(),
+        // AppRoutes.introScreen: (context) => IntroScreen(),
         AppRoutes.heartIcon: (context) => Hearticon(),
         AppRoutes.ironIcon: (context) => Ironicon(),
-        AppRoutes.profileIcon: (context) => Profileicone(),
+        AppRoutes.history: (context) => History(),
         AppRoutes.signIn1: (context) => SignIn1(),
         AppRoutes.signIn2: (context) => SignIn2(),
         AppRoutes.customFormField: (context) => CustomFormfield(filled: null),
@@ -39,6 +45,11 @@ class MyApp extends StatelessWidget {
         AppRoutes.genderScreen: (context) => GenderScreen(),
         AppRoutes.frontScreen: (context) => FrontScreen(),
         AppRoutes.dashScreen: (context) => DashboardMain(),
+        AppRoutes.pushUp: (context) => PushUp(),
+        AppRoutes.hammerCurl: (context) => HammerCurl(),
+        AppRoutes.shoulderPress: (context) => ShoulderPress(),
+        AppRoutes.dumbbellSide: (context) => DumbbellSide(),
+        AppRoutes.bicepsCurl: (context) => BicepsCurl(),
       },
     );
   }

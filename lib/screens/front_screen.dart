@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/customs/custom_elevated_bottom.dart';
+import 'package:fluttercourse/screens/dashboard/dashboard_main.dart';
 import 'package:fluttercourse/utils/colors.dart';
 
 class FrontScreen extends StatefulWidget {
@@ -247,7 +248,9 @@ class _FrontScreenState extends State<FrontScreen> {
                   bottomText: "Finished",
                   width: 150,
                   height: 43,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => DashboardMain()));
+                  },
                 ),
               ),
             ],

@@ -10,5 +10,6 @@ class AppColors {
   static const Color gBColor = Color(0x5ED9D9D9); // 37% opacity
   static const Color gIColor = Color(0x47D9D9D9); // 28% opacity
   static const Color ggrayColor = Color(0xFF111111);
+  static const Color gggrayColor = Color(0xbdf8f8f8);
   static const Color transparentColor = Colors.transparent;
 }

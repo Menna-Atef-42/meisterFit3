@@ -6,7 +6,6 @@ import 'package:fluttercourse/customs/custom_elevated_bottom.dart';
 import 'package:fluttercourse/customs/custom_formField.dart';
 import 'package:fluttercourse/utils/colors.dart';
 import 'package:fluttercourse/utils/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 class SignIn2 extends StatefulWidget {
@@ -190,7 +189,8 @@ class _SignIn2State extends State<SignIn2> {
                                 style: TextStyle(
                                     color: AppColors.phosphorescentColor,
                                     decoration: TextDecoration.underline,
-                                    decorationColor: AppColors.phosphorescentColor),
+                                    decorationColor: AppColors
+                                        .phosphorescentColor),
                               ))
                         ],
                       )
@@ -208,49 +208,61 @@ class _SignIn2State extends State<SignIn2> {
 
   void signInWithEmail() async {
     if (formKey.currentState!.validate()) {
-
-      var url = Uri.parse('https://your-backend-api.com/login');
-
+      var url = Uri.parse('https://gp-backend-production-f405.up.railway.app/api/login');
       try {
-
         var response = await http.post(
           url,
-          body: {
-            'email': emailController.text.trim(),
-            'password': passwordController.text.trim(),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json", // مهم جداً لتجنب الـ 302 Redirect
           },
-        );
+          body: jsonEncode({
+            'email': emailController.text.trim(),
+            'password': passwordController.text, // كلمة المرور لا نستخدم معها trim غالباً
+          }),
+        ).timeout(const Duration(seconds: 15));
+
+        var responseData = jsonDecode(response.body);
 
         if (response.statusCode == 200) {
-
-          var data = jsonDecode(response.body);
-
-          print("Login Success: ${data['token']}");
+          String? token = responseData['token'];
+          print("Login Success. Token: $token");
 
           AwesomeDialog(
             context: context,
             dialogType: DialogType.success,
-            title: 'Success',
-            desc: 'Login successfully',
+            animType: AnimType.bottomSlide,
+            title: 'Welcome Back!',
+            desc: 'Logged in successfully',
             btnOkOnPress: () {
               Navigator.pushNamed(context, AppRoutes.genderScreen);
             },
           ).show();
+
         } else {
-          var errorData = jsonDecode(response.body);
+          String errorMessage = responseData['message'] ?? 'Invalid email or password';
 
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
+            animType: AnimType.scale,
             title: 'Login Failed',
-            desc: errorData['message'] ?? 'Check your email or password',
+            desc: errorMessage,
             btnOkOnPress: () {},
           ).show();
         }
+
       } catch (e) {
         print("Network Error: $e");
-      }
 
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.warning,
+          title: 'Connection Issue',
+          desc: 'Please check your internet connection and try again.',
+          btnOkOnPress: () {},
+        ).show();
+      }
     }
   }
 }

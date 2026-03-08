@@ -119,7 +119,7 @@ class _GenderScreenState extends State<GenderScreen> {
 
                     }else{
                       Navigator.pushNamedAndRemoveUntil(
-                          context, AppRoutes.homeIcon, (route) => false);
+                          context, AppRoutes.frontScreen, (route) => false);
                     }
                   },
                 ),

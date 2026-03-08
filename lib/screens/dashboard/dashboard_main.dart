@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:fluttercourse/screens/dashboard/history.dart';
 import 'package:fluttercourse/screens/dashboard/homeIcon.dart';
 import 'package:fluttercourse/screens/dashboard/heartIcon.dart';
 import 'package:fluttercourse/screens/dashboard/ironIcon.dart';
-import 'package:fluttercourse/screens/dashboard/profileIcone.dart';
 import 'package:fluttercourse/utils/colors.dart';
 
 class DashboardMain extends StatefulWidget {
@@ -27,7 +27,7 @@ class _DashboardMainState extends State<DashboardMain> {
           Homeicon(),
           Hearticon(),
           Ironicon(),
-          Profileicone(),
+          History()
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -38,7 +38,7 @@ class _DashboardMainState extends State<DashboardMain> {
           ImageIcon(AssetImage('assets/images/home.png'), size: 25),
           ImageIcon(AssetImage('assets/images/heart.png'), size: 35),
           ImageIcon(AssetImage('assets/images/iron.png'), size: 35),
-          ImageIcon(AssetImage('assets/images/profile.png'), size: 35),
+          ImageIcon(AssetImage('assets/images/history.png'), size: 30),
         ],
         color: AppColors.phosphorescentColor,
         buttonBackgroundColor: AppColors.whiteColor,
